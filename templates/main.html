@@ -13,9 +13,9 @@
 	<script src="/static/js/materialize.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
-			$.get('/leads', function(response){
+			$.post('/leads', $('form').serialize(), function(response){
 				$('#links').html(response)
-				$.get('/leads/show/0', function(response){
+				$.post('/leads/show/0', $('form').serialize(), function(response){
 						$('#table').html(response)
 				})
 				$('a:first').addClass('blue white-text')
@@ -44,16 +44,25 @@
 <body>
 	<nav class="blue">
 		<div>
-			
 		</div>
 	</nav>
-	<div class="container row">
+	<div class="container row section">
 		<form class="" id="nameSearch" action="/search" method="post">
-			<input class="col s3" type="search" name="name" placeholder="Search by Name" />
-			<input id="dateFrom" class="col s3 offset-s1" type="date" name="dateFrom" />
-			<input id="dateTo" class="col s3 offset-s1" type="date" name="dateTo" />
+			<div class="col s3">
+				<label>Search</label>
+				<input type="search" name="name" placeholder="Search by Name" />
+			</div>
+			<div class="col s3 offset-s1">
+				<label>Date From</label>
+				<input id="dateFrom" type="date" name="dateFrom" />
+			</div>
+			<div class="col s3 offset-s1">
+				<label>Date To</label>
+				<input id="dateTo" type="date" name="dateTo" />
+			</div>
 		</form>
 	</div>
+
 	<div id="links" class="container row"></div>
 	<div id="table" class="container row"></div>
 </body>
