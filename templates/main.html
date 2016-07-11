@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="author" content="Jonathan Ben-Ammi">
+	<title></title>
+	<meta name="description" content="">
+	<link rel="stylesheet" type="text/css" href="/static/css/materialize.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/materialize_icons.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/style.css">
+	<script src="/static/js/jquery-2.2.3.js"></script>
+	<script src="/static/js/jquery-ui.js"></script>
+	<script src="/static/js/materialize.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$.get('/leads', function(response){
+				$('#links').html(response)
+				$.get('/leads/show/0', function(response){
+						$('#table').html(response)
+				})
+				$('a:first').addClass('blue white-text')
+			})
+			$(document).on('click', 'a', function(e){
+				e.preventDefault();
+				$.post($(this).attr('href'), $('form').serialize(), function(response){
+					$('#table').html(response)
+				})
+				$('ul').find('a').removeClass('blue white-text')
+				$(this).addClass('blue white-text')
+			})
+			$(document).on('keyup change', '#nameSearch', function(e){
+				e.preventDefault();
+				$.post('/leads', $('form').serialize(), function(response){
+					$('#links').html(response)
+					$.post('/leads/show/0', $('form').serialize(), function(response){
+						$('#table').html(response)
+					})
+				$('a:first').addClass('blue white-text')
+				})
+			})
+		})
+	</script>
+</head>
+<body>
+	<nav class="blue">
+		<div>
+			
+		</div>
+	</nav>
+	<div class="container row">
+		<form class="" id="nameSearch" action="/search" method="post">
+			<input class="col s3" type="search" name="name" placeholder="Search by Name" />
+			<input id="dateFrom" class="col s3 offset-s1" type="date" name="dateFrom" />
+			<input id="dateTo" class="col s3 offset-s1" type="date" name="dateTo" />
+		</form>
+	</div>
+	<div id="links" class="container row"></div>
+	<div id="table" class="container row"></div>
+</body>
+</html>

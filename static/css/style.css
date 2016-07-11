@@ -1,0 +1,7 @@
+.inline	{
+	display: inline-block;
+}
+
+.inline a {
+	padding: 5px;
+}

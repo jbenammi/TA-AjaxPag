@@ -1,0 +1,22 @@
+<table class="striped">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>First Name</th>
+			<th>Last Name</th>
+			<th>Date Registered</th>
+			<th>E-Mail</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for lead in leads %}
+		<tr>
+			<td>{{lead['id']}}</td>
+			<td>{{lead['first_name']}}</td>
+			<td>{{lead['last_name']}}</td>
+			<td>{{lead['registered_datetime'].strftime('%a %b %d, %Y %I:%M %p')}}</td>
+			<td>{{lead['email']}}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
